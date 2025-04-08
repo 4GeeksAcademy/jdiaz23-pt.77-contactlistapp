@@ -1,43 +1,73 @@
-import React from "react";
+import React, { useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+import { useNavigate } from "react-router-dom";
 
 export const CreateContact = () => {
-  const { store, dispatch } = useGlobalReducer();
+  const { store, dispatch, addContact} = useGlobalReducer();
+  const [ newContact, setNewContact ] = useState({name:"", phone:"", email:"", address:""});
+  const navigate = useNavigate();
 
-  //   const addContact = async () => {
-  //     let response = await fetch(``, {
-  //     method: "POST",
-  //     headers: {"Content-type": "application/json"},
-  //     body: JSON.stringify({ contact })
-  //     })
-  // }
-
-  // const contact =
-  // {
-  //     "name": name,
-  //     "phone": phone,
-  //     "email": email,
-  //     "address": address
-  //   }
-
+  const handleCreateContact = (e) => {
+    e.preventDefault();
+    console.log("test", newContact)
+    addContact(newContact);
+    navigate("/");
+  };
   return (
     <div className="container">
-      <div className="text-center mt-5">
+      <h1 className="text-center mt-3">Create New Contact</h1>
+      <div className="text-center mt-3">
         <form className="row g-3">
-          <div className="col-md-6">
+        <div className="col-12">
+            <label for="name" className="form-label">
+              Full Name
+            </label>
+            <input
+              onChange={(e) =>
+                setNewContact({...newContact, name: e.target.value })
+              }
+              type="text"
+              className="form-control"
+              placeholder="Full Name"
+              id="name"
+            />
+          </div>
+          <div className="col-12">
+            <label for="phone" className="form-label">
+              Phone
+            </label>
+            <input
+              onChange={(e) =>
+                setNewContact({...newContact, phone: e.target.value })
+              }
+              type="text"
+              className="form-control"
+              placeholder="12457890"
+              id="phone"
+            />
+          </div>
+          <div className="col-12">
             <label for="inputEmail4" className="form-label">
               Email
             </label>
-            <input type="email" className="form-control" id="inputEmail4" />
+            <input
+             onChange={(e) => setNewContact({...newContact, email: e.target.value})}
+              type="email"
+              className="form-control"
+              placeholder="Enter Email"
+              id="inputEmail4"
+            />
           </div>
-          <div className="col-md-6">
-            <label for="inputPassword4" className="form-label">
-              Password
+
+          <div className="col-12">
+            <label for="phoneNumber" className="form-label">
+              Phone Number
             </label>
             <input
-              type="password"
+              type="tel"
               className="form-control"
-              id="inputPassword4"
+              id="phoneNumber"
+              placeholder="123-234-5678"
             />
           </div>
           <div className="col-12">
@@ -45,43 +75,23 @@ export const CreateContact = () => {
               Address
             </label>
             <input
+              onChange={(e) => setNewContact({...newContact, address: e.target.value})}
               type="text"
               className="form-control"
               id="inputAddress"
-              placeholder="1234 Main St"
+              placeholder="Enter Address"
             />
           </div>
+
           <div className="col-12">
-            <label for="inputAddress2" className="form-label">
-              Address 2
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="inputAddress2"
-              placeholder="Apartment, studio, or floor"
-            />
-          </div>
-          <div className="col-md-6">
-            <label for="inputCity" className="form-label">
-              City
-            </label>
-            <input type="text" className="form-control" id="inputCity" />
-          </div>
-          <div className="col-md-4">
-            <label for="inputState" className="form-label">
-              State
-            </label>
-            <select id="inputState" className="form-select">
-              <option selected>Choose...</option>
-              <option>...</option>
-            </select>
-          </div>
-          <div className="col-md-2">
-            <label for="inputZip" className="form-label">
-              Zip
-            </label>
-            <input type="text" className="form-control" id="inputZip" />
+            <label for="button"></label>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onClick={(e) => handleCreateContact(e)}
+            >
+              Save
+            </button>
           </div>
         </form>
       </div>
