@@ -3,13 +3,18 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { useNavigate } from "react-router-dom";
 
 export const CreateContact = () => {
-  const { store, dispatch, addContact} = useGlobalReducer();
-  const [ newContact, setNewContact ] = useState({name:"", phone:"", email:"", address:""});
+  const { store, dispatch, addContact } = useGlobalReducer();
+  const [newContact, setNewContact] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    address: "",
+  });
   const navigate = useNavigate();
 
   const handleCreateContact = (e) => {
     e.preventDefault();
-    console.log("test", newContact)
+    console.log("here is your new contact", newContact);
     addContact(newContact);
     navigate("/");
   };
@@ -18,13 +23,13 @@ export const CreateContact = () => {
       <h1 className="text-center mt-3">Create New Contact</h1>
       <div className="text-center mt-3">
         <form className="row g-3">
-        <div className="col-12">
+          <div className="col-12">
             <label for="name" className="form-label">
               Full Name
             </label>
             <input
               onChange={(e) =>
-                setNewContact({...newContact, name: e.target.value })
+                setNewContact({ ...newContact, name: e.target.value })
               }
               type="text"
               className="form-control"
@@ -38,7 +43,7 @@ export const CreateContact = () => {
             </label>
             <input
               onChange={(e) =>
-                setNewContact({...newContact, phone: e.target.value })
+                setNewContact({ ...newContact, phone: e.target.value })
               }
               type="text"
               className="form-control"
@@ -51,23 +56,13 @@ export const CreateContact = () => {
               Email
             </label>
             <input
-             onChange={(e) => setNewContact({...newContact, email: e.target.value})}
+              onChange={(e) =>
+                setNewContact({ ...newContact, email: e.target.value })
+              }
               type="email"
               className="form-control"
               placeholder="Enter Email"
               id="inputEmail4"
-            />
-          </div>
-
-          <div className="col-12">
-            <label for="phoneNumber" className="form-label">
-              Phone Number
-            </label>
-            <input
-              type="tel"
-              className="form-control"
-              id="phoneNumber"
-              placeholder="123-234-5678"
             />
           </div>
           <div className="col-12">
@@ -75,7 +70,9 @@ export const CreateContact = () => {
               Address
             </label>
             <input
-              onChange={(e) => setNewContact({...newContact, address: e.target.value})}
+              onChange={(e) =>
+                setNewContact({ ...newContact, address: e.target.value })
+              }
               type="text"
               className="form-control"
               id="inputAddress"
@@ -87,7 +84,7 @@ export const CreateContact = () => {
             <label for="button"></label>
             <button
               type="button"
-              class="btn btn-primary"
+              className="btn btn-primary"
               onClick={(e) => handleCreateContact(e)}
             >
               Save

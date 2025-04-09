@@ -1,3 +1,5 @@
+import { useActionState } from "react";
+
 export const initialStore=()=>{
   return{
     message: null,
@@ -13,27 +15,33 @@ export const initialStore=()=>{
         background: null,
       }
     ],
-    contacts: null,
+    contacts: [],
   }
 }
 
 export default function storeReducer(store, action = {}) {
   switch(action.type){
-    case 'add_task':
+    case 'set_contacts':
 
-      const { id,  color } = action.payload
+      const { contacts } = action.payload
 
       return {
         ...store,
-        todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
+        contacts: action.payload
       };
-    case 'getContact':
-      const {newContacts} =  action.payload;
-      return {
-        ...store,
-        contacts : newContacts
-      }
-    default:
-      throw Error('Unknown action.');
+    // case 'getContact':
+    //   const {newContacts} =  action.payload;
+    //   return {
+    //     ...store,
+    //     contacts: action.contacts || []
+    //   }
+    // default:
+    //   throw Error('Unknown action.');
   }    
+  if(action.type === "getContact"){
+    return {
+            ...store,
+            contacts: action.contacts || []
+          }
+  }
 }

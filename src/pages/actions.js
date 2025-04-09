@@ -3,7 +3,7 @@ let response = await fetch(`https://playground.4geeks.com/contact/agendas/jdiaz2
     method: "POST",
     headers: {"Content-type": "application/json" }
 
-})   
+})
 
     let data = await response.json(dispatch, payload)
     console.log("this is the createAgenda data ", data)
@@ -11,17 +11,17 @@ let response = await fetch(`https://playground.4geeks.com/contact/agendas/jdiaz2
     getContacts(dispatch)
     
 }
-export const getContacts = async (dispatch, payload) => {
+export const getContacts = async (dispatch) => {
+    
     let response = await fetch(`https://playground.4geeks.com/contact/agendas/jdiaz23/contacts`);
     let data = await response.json();
     console.log("this is the getContact data ", data)
-    if (response = "Agenda \"jdiaz23\" doesn't exist.") {
-            createAgenda()
-}
-dispatch({
-    type: "getContact",
-    payload: {newContacts: data.contacts }
-})
+    dispatch({
+        type: "set_contacts",
+        payload: data.contacts
+      })
+    return data.contacts
+
 }
 
 export const addContact = async (dispatch, payload) => {
@@ -38,7 +38,7 @@ export const addContact = async (dispatch, payload) => {
     body: JSON.stringify( contact )
     })
     console.log("check here", response)
-    getContacts(dispatch)
+    // getContacts(dispatch)
 }
 
 export const updateContact = async(dispatch, payload)=>{
