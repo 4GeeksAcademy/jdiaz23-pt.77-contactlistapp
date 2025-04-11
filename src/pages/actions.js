@@ -41,20 +41,31 @@ export const addContact = async (dispatch, payload) => {
     // getContacts(dispatch)
 }
 
-export const updateContact = async(dispatch, payload)=>{
-    let formInputs= payload.formInputs
-    let response = await fetch(`https://playground.4geeks.com/contact/agendas/jdiaz23/contacts/${payload.id}`, {
+export const updateContact = async(contact)=>{
+    // let formInputs= payload.formInputs
+    try{
+        console.log("this is my CONTACT ", contact)
+    const response = await fetch(`https://playground.4geeks.com/contact/agendas/jdiaz23/contacts/${contact.id}`, {
         method: "PUT",
         headers: {"Content-type": "application/json"},
-        body: JSON.stringify({ formInputs})
+        body: JSON.stringify({ 
+            "name" :contact.name,
+            "phone": contact.phone,
+            "email": contact.email,
+            "address": contact.address,
+        })
     })
+    const user = await response.json()
+}catch(error){
+        console.log(error)
+    }
     // let data = await response.json()
     // console.log("This is the udateContact data", data)
-    if(response.ok){
-        const updateContact = await response.json()
-        dispatch({type: "update_contact", contact: updateContact})
-    }
-    getContacts(dispatch)
+    // if(response.ok){
+    //     const updateContact = await response.json()
+    //     dispatch({type: "update_contact", contact: updateContact})
+    // }
+    // getContacts(dispatch)
 }
 
 export const deleteContact = async (id) =>{
@@ -66,4 +77,8 @@ export const deleteContact = async (id) =>{
     console.log("this is the deleteContact data ", data)
     getContacts(dispatch)
 }
+
+
+
+
 
